@@ -96,7 +96,7 @@ assert(gravityAssist2([4,1], 30) == 1)
 assert(gravityAssist2([3,0,4,0,99], 30) == 30) 
 assert(gravityAssist2([1002,4,3,4,33], 30) == 30) 
 assert(gravityAssist2([1101,100,-1,4,0], 1))
-print(gravityAssist2(new_input, 1))
+print(gravityAssist2(new_input.copy(), 1))
 
 '''
 art Two ---
@@ -142,9 +142,7 @@ def gravityAssist3(instructions, input):
         opcode_string = str(instructions[index])
         prepend_last = False
         if (opcode_string[0] == '-'):
-            print("TRUE")
             prepend_last = True
-        print("opcode_string: ", opcode_string, "index: ", index)
         # set up params
         if (len(opcode_string) == 1):
             opcode = opcode_string
@@ -173,51 +171,35 @@ def gravityAssist3(instructions, input):
         index += 1
 
         if (opcode == '3' or opcode == '03'):
-            print( 'op3')
-            print(index1, '->', input)
             instructions[index1] = input
             continue
         elif (opcode == '4' or opcode == '04'):
-            print( 'op4')
-            print(index1, '<-', input)
             input = instructions[index1]
             continue
 
         index2 = instructions[index] if param2_mode == 0 else index
         index += 1
         if (opcode == '5' or opcode == '05'):
-            print( 'op5')
             if (instructions[index1] != 0):
-                print('jump to', instructions[index2])
                 index = instructions[index2]
             continue
         elif (opcode == '6' or opcode == '06'):
-            print( 'op6')
             if (instructions[index1] == 0):
-                print('jump to', instructions[index2])
                 index = instructions[index2]
             continue
         index3 = instructions[index] if param3_mode == 0 else index
         index += 1
 
         if (opcode == '1' or opcode == '01'):
-            print( 'op1')
-            print(index3, '->', instructions[index1] + instructions[index2])
             instructions[index3] = instructions[index1] + instructions[index2]
             continue
         elif (opcode == '2' or opcode == '02'):
-            print( 'op2')
-            print(index3, '->', instructions[index1] * instructions[index2])
             instructions[index3] = instructions[index1] * instructions[index2]
             continue
         elif (opcode == '7' or opcode == '07'):
-            print( 'op7')
-            print(index3, '->', 1 if (instructions[index1] < instructions[index2]) else 0)
             instructions[index3] = 1 if (instructions[index1] < instructions[index2]) else 0
             continue
         elif (opcode == '8' or opcode == '08'):
-            print( 'op8')
-            print(index3, '->', 1 if (instructions[index1] == instructions[index2]) else 0)
             instructions[index3] = 1 if (instructions[index1] == instructions[index2]) else 0
             continue
     return input
@@ -239,4 +221,4 @@ assert(gravityAssist3(example, 7) == 999)
 assert(gravityAssist3(example, 8) == 1000)
 assert(gravityAssist3(example, 10000) == 1001)
 
-print(gravityAssist3(new_input, 5))
+print(gravityAssist3(new_input.copy(), 5))
